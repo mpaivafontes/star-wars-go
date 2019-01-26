@@ -1,9 +1,14 @@
-package main
+package handlers
 
 import (
+	"encoding/json"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"time"
 )
+
+var url = "https://swapi.co/planets"
 
 type Planet struct {
 	Name      string   `json:"name"`
@@ -12,14 +17,36 @@ type Planet struct {
 	Films     []string `json:"films"`
 }
 
-func FindAllPlanets(w http.ResponseWriter, r *http.Request) String {
-	url := Environment.BaseURL + "/planets"
+var client = &http.Client{Timeout: 10 * time.Second}
 
-	resp, err := http.Get(url)
+func NewPlanets() *mux.Router {
+	router := mux.NewRouter()
+
+	router.PathPrefix("planets")
+	router.HandleFunc("/", List).Methods("GET")
+
+	return router
+}
+
+func List(res http.ResponseWriter, req *http.Request) []Planet {
+	r, err := client.Get(url)
 
 	if err != nil {
-		log.Printf("fail to find planets", err)
+		log.Panic("Error to list planets", err)
+		return []Planet{}
 	}
 
-	return resp.Body.Read
+	defer r.Body.Close()
+
+	decoder := json.NewDecoder(r.Body)
+
+	var planet Planet
+
+	if err := decoder.Decode(&planet); err != nil {
+		log.Panic("Fail to convert Panets", err)
+		return []Planet{}
+	}
+
+	for i, p := planet 
+	return planet.To
 }

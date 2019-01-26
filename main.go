@@ -6,8 +6,15 @@ import (
 	"net/http"
 )
 
+var(
+	URL := E
+)
+
 func main() {
 	router := mux.NewRouter()
+
+	
+
 
 	router.HandleFunc("/", P.Find)
 
