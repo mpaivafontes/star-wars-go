@@ -9,7 +9,7 @@ import (
 func main() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/", )
+	router.HandleFunc("/", P.Find)
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 }

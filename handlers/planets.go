@@ -12,7 +12,7 @@ type Planet struct {
 	Films     []string `json:"films"`
 }
 
-func FindAllPlanets(w http.ResponseWriter, r *http.Request) {
+func FindAllPlanets(w http.ResponseWriter, r *http.Request) String {
 	url := Environment.BaseURL + "/planets"
 
 	resp, err := http.Get(url)
@@ -20,4 +20,6 @@ func FindAllPlanets(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("fail to find planets", err)
 	}
+
+	return resp.Body.Read
 }
