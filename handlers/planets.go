@@ -45,5 +45,5 @@ func List(res http.ResponseWriter, req *http.Request) {
 		log.Panic("Fail to convert Panets", err)
 	}
 
-	println("Planets are %s", &planet)
+	println("Planets are %s", planet.Name)
 }
