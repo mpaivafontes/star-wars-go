@@ -4,19 +4,16 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-)
 
-var(
-	URL := E
+	"github.com/mpaivafontes/star-wars-go/handlers"
 )
 
 func main() {
 	router := mux.NewRouter()
 
-	
+	planet := planets.NewPlanets()
 
-
-	router.HandleFunc("/", P.Find)
+	http.Handle("/", router)
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 }

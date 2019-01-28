@@ -21,19 +21,18 @@ var client = &http.Client{Timeout: 10 * time.Second}
 
 func NewPlanets() *mux.Router {
 	router := mux.NewRouter()
+	router.PathPrefix("/planets").Subrouter()
 
-	router.PathPrefix("planets")
-	router.HandleFunc("/", List).Methods("GET")
+	router.HandleFunc("/", List)
 
 	return router
 }
 
-func List(res http.ResponseWriter, req *http.Request) []Planet {
+func List(res http.ResponseWriter, req *http.Request) {
 	r, err := client.Get(url)
 
 	if err != nil {
 		log.Panic("Error to list planets", err)
-		return []Planet{}
 	}
 
 	defer r.Body.Close()
@@ -44,9 +43,7 @@ func List(res http.ResponseWriter, req *http.Request) []Planet {
 
 	if err := decoder.Decode(&planet); err != nil {
 		log.Panic("Fail to convert Panets", err)
-		return []Planet{}
 	}
 
-	for i, p := planet 
-	return planet.To
+	println("Planets are %s", &planet)
 }
